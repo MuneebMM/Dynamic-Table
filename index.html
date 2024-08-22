@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dynamic Table</h2>
+    <button onclick="addRow()">Add Row</button>
+    <button onclick="deleteRow()">Delete Row</button>
+    <button onclick="addColumn()">Add Column</button>
+    <button onclick="deleteColumn()">Delete Column</button>
+
+    <table id="dynamicTable">
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+        <tr>
+            <td>Row 1, Col 1</td>
+            <td>Row 1, Col 2</td>
+        </tr>
+        <tr>
+            <td>Row 2, Col 1</td>
+            <td>Row 2, Col 2</td>
+        </tr>
+    </table>
+
+    <script>
+        function addRow() {
+            let table = document.getElementById("dynamicTable");
+            let rowCount = table.rows.length;
+            let columnCount = table.rows[0].cells.length;
+            let newRow = table.insertRow(rowCount);
+
+            for (let i = 0; i < columnCount; i++) {
+                let newCell = newRow.insertCell(i);
+                newCell.innerHTML = `Row ${rowCount}, Col ${i + 1}`;
+            }
+        }
+
+        function deleteRow() {
+            let table = document.getElementById("dynamicTable");
+            let rowCount = table.rows.length;
+            if (rowCount > 1) { // Keep at least one row
+                table.deleteRow(rowCount - 1);
+            }
+        }
+
+        function addColumn() {
+            let table = document.getElementById("dynamicTable");
+            let rowCount = table.rows.length;
+
+            for (let i = 0; i < rowCount; i++) {
+                let newCell = table.rows[i].insertCell(-1);
+                newCell.innerHTML = i === 0 ? `Header ${table.rows[i].cells.length}` : `Row ${i}, Col ${table.rows[i].cells.length}`;
+            }
+        }
+
+        function deleteColumn() {
+            let table = document.getElementById("dynamicTable");
+            let rowCount = table.rows.length;
+            let columnCount = table.rows[0].cells.length;
+
+            if (columnCount > 1) { // Keep at least one column
+                for (let i = 0; i < rowCount; i++) {
+                    table.rows[i].deleteCell(columnCount - 1);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
