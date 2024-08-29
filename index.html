@@ -3,92 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        table, th, td {
-            border: 1px solid black;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: center;
-        }
-
-        button {
-            margin: 10px;
-        }
-    </style>
+    <title>Dynamic Table</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h2>Dynamic Table</h2>
-    <button onclick="addRow()">Add Row</button>
-    <button onclick="deleteRow()">Delete Row</button>
-    <button onclick="addColumn()">Add Column</button>
-    <button onclick="deleteColumn()">Delete Column</button>
+<body class="bg-gray-100 p-6 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl">
+        <h2 class="text-2xl font-bold mb-4 text-center">Dynamic Table</h2>
+        <div class="flex justify-center mb-4">
+            <button id="addRowBtn" onclick="addRow()" class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-blue-600">Add Row</button>
+            <button id="deleteRowBtn" onclick="deleteRow()" class="bg-red-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-red-600">Delete Row</button>
+            <button id="addColumnBtn" onclick="addColumn()" class="bg-green-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-green-600">Add Column</button>
+            <button id="deleteColumnBtn" onclick="deleteColumn()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Delete Column</button>
+        </div>
 
-    <table id="dynamicTable">
-        <tr>
-            <th>Header 1</th>
-            <th>Header 2</th>
-        </tr>
-        <tr>
-            <td>Row 1, Col 1</td>
-            <td>Row 1, Col 2</td>
-        </tr>
-        <tr>
-            <td>Row 2, Col 1</td>
-            <td>Row 2, Col 2</td>
-        </tr>
-    </table>
-
-    <script>
-        function addRow() {
-            let table = document.getElementById("dynamicTable");
-            let rowCount = table.rows.length;
-            let columnCount = table.rows[0].cells.length;
-            let newRow = table.insertRow(rowCount);
-
-            for (let i = 0; i < columnCount; i++) {
-                let newCell = newRow.insertCell(i);
-                newCell.innerHTML = `Row ${rowCount}, Col ${i + 1}`;
-            }
-        }
-
-        function deleteRow() {
-            let table = document.getElementById("dynamicTable");
-            let rowCount = table.rows.length;
-            if (rowCount > 1) { // Keep at least one row
-                table.deleteRow(rowCount - 1);
-            }
-        }
-
-        function addColumn() {
-            let table = document.getElementById("dynamicTable");
-            let rowCount = table.rows.length;
-
-            for (let i = 0; i < rowCount; i++) {
-                let newCell = table.rows[i].insertCell(-1);
-                newCell.innerHTML = i === 0 ? `Header ${table.rows[i].cells.length}` : `Row ${i}, Col ${table.rows[i].cells.length}`;
-            }
-        }
-
-        function deleteColumn() {
-            let table = document.getElementById("dynamicTable");
-            let rowCount = table.rows.length;
-            let columnCount = table.rows[0].cells.length;
-
-            if (columnCount > 1) { // Keep at least one column
-                for (let i = 0; i < rowCount; i++) {
-                    table.rows[i].deleteCell(columnCount - 1);
-                }
-            }
-        }
-    </script>
+        <div class="overflow-x-auto">
+            <table id="dynamicTable" class="min-w-full bg-white border border-gray-300">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="py-2 px-4 border border-gray-300">Header 1</th>
+                        <th class="py-2 px-4 border border-gray-300">Header 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 px-4 border border-gray-300">Row 1, Col 1</td>
+                        <td class="py-2 px-4 border border-gray-300">Row 1, Col 2</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border border-gray-300">Row 2, Col 1</td>
+                        <td class="py-2 px-4 border border-gray-300">Row 2, Col 2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
